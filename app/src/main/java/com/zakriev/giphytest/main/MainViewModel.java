@@ -13,26 +13,32 @@ public class MainViewModel extends ViewModel {
 
     private MainRepository repository = new MainRepository();
 
-    private MutableLiveData<List<Gif>> gifs;
+    private MutableLiveData<List<Gif>> gifs = new MutableLiveData<>();
+    private MutableLiveData<Boolean> scrollToTop = new MutableLiveData<>();
 
     private String q;
 
 
     public LiveData<List<Gif>> getGifs() {
-        if (gifs == null) {
-            gifs = new MutableLiveData<>();
-        }
         return gifs;
     }
 
 
     public void queryGifs(String q) {
         this.q = q;
-        repository.queryGifs(q, gifs);
+        repository.queryGifs(q, gifs, scrollToTop);
     }
 
     public void loadMore() {
-        repository.loadMoreGifs(gifs, q);
+        repository.loadMoreGifs(q, gifs);
+    }
+
+    public LiveData<Boolean> getScrollToTop() {
+        return scrollToTop;
+    }
+
+    public void rvHasBeenScrolled() {
+        scrollToTop.setValue(false);
     }
 
 

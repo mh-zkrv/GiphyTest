@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zakriev.giphytest.R;
 import com.zakriev.giphytest.data.Gif;
-import com.zakriev.giphytest.data.Original;
 import com.zakriev.giphytest.data.PreviewGif;
 
 import java.util.List;
@@ -36,16 +35,16 @@ public class GifsAdapter extends RecyclerView.Adapter<GifsAdapter.ViewHolder> {
 
         ImageView iv = viewHolder.iv;
 
-        PreviewGif img = gifs.get(i).getImages().getPreviewGif();
-        double width = Double.parseDouble(img.getWidth());
-        double height = Double.parseDouble(img.getHeight());
+        PreviewGif gif = gifs.get(i).getImages().getPreviewGif();
+        double width = Double.parseDouble(gif.getWidth());
+        double height = Double.parseDouble(gif.getHeight());
 
         double coeff = fullWidth / width;
 
         iv.setMinimumHeight((int) (coeff * height) + 10);
 
         Glide.with(iv.getContext())
-                .load(gifs.get(i).getImages().getPreviewGif().getUrl())
+                .load(gif.getUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(iv);
     }

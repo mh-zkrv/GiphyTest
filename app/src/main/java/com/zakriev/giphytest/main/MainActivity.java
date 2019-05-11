@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean loading = false;
     private MainViewModel viewModel;
+    private LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         RecyclerView recyclerView = findViewById(R.id.rv);
 
-        final LinearLayoutManager layoutManager =
-                new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
 
         final GifsAdapter adapter = new GifsAdapter();
 
@@ -63,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        viewModel.getScrollToTop().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if (aBoolean != null && aBoolean) {
+                    layoutManager.scrollToPosition(0);
+                    viewModel.rvHasBeenScrolled();
+                }
+            }
+        });
 
 
 

@@ -19,7 +19,8 @@ public class MainRepository {
     private GiphyApiService giphyApiService = App.getGiphyApiRetrofit().create(GiphyApiService.class);
 
 
-    public void queryGifs(String q, final MutableLiveData<List<Gif>> gifsLiveData) {
+    public void queryGifs(String q, final MutableLiveData<List<Gif>> gifsLiveData,
+                          final MutableLiveData<Boolean> scrollToTop) {
         giphyApiService.getApiResponse(0, q).enqueue(new Callback<ApiResponse>() {
             @Override
             @EverythingIsNonNull
@@ -27,6 +28,7 @@ public class MainRepository {
                 ApiResponse responseBody = response.body();
                 if (responseBody != null) {
                     gifsLiveData.setValue(responseBody.getData());
+                    scrollToTop.setValue(true);
                 }
             }
 
@@ -38,7 +40,7 @@ public class MainRepository {
         });
     }
 
-    public void loadMoreGifs(final MutableLiveData<List<Gif>> gifsLiveData, String q) {
+    public void loadMoreGifs(String q, final MutableLiveData<List<Gif>> gifsLiveData) {
 
         final ArrayList<Gif> gifs;
 
