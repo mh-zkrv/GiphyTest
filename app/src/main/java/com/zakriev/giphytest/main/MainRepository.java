@@ -1,7 +1,6 @@
 package com.zakriev.giphytest.main;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.zakriev.giphytest.App;
 import com.zakriev.giphytest.network.GiphyApiService;
@@ -49,7 +48,6 @@ public class MainRepository {
         } else {
             gifs = (ArrayList<Gif>) gifsLiveData.getValue();
         }
-        Log.d("jsjsjs", gifs.size() + "");
 
         giphyApiService.getApiResponse(gifs.size(), q).enqueue(new Callback<ApiResponse>() {
             @Override
@@ -60,7 +58,6 @@ public class MainRepository {
                     List<Gif> responseGifs = responseBody.getData();
                     gifs.addAll(responseGifs);
                     gifsLiveData.setValue(gifs);
-                    Log.d("jsjsjs", gifs.size() + "");
                 }
             }
 

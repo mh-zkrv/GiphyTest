@@ -5,7 +5,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.zakriev.giphytest.data.Gif;
-import com.zakriev.giphytest.main.MainRepository;
 
 import java.util.List;
 
